@@ -12,3 +12,10 @@ list_of_states = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Col
 candidates = ["Trump", "Kasich", "Cruz", "Rubio", "Carson", "Bush",
               "Gilmore", "Christie", "Fiorina", "Paul", "Huckabee",
               "Santorum"]
+
+unique_primaries = []
+
+primary_dates = {
+    "Iowa": ["2016-02-02", 30]
+
+}

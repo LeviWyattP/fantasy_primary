@@ -35,6 +35,16 @@ class Candidate:
             # -3 no idea what happened
             return -3
 
+    def sell_candidate_stock(self, player_money):
+
+        # what is the price of the stock - this is what the player will get
+        # Then add a share and set a new price
+        player_money = self.get_stock_price()
+        self.shares += 1
+        self.set_stock_price()
+
+        return player_money
+
     def set_stock_price(self):
         self.stock_price = 1 * self.stock_price_modifier ** (11 - self.get_shares())
 
@@ -52,9 +62,38 @@ class Player:
         self.delegates = 0
         self.total_votes = 0
 
+        # stocks. Key = name; result = number of stocks
+        self.stocks = {}
+
     def add_stock(self, candidate_select):
         candidate_select.buy_candidate_stock()
 
+    def sell_stock(self, candidate_select):
+
+        # Check for number of stocks - Does the player have stock in this candidate
+        number_of_stocks = self.check_for_stock(candidate_select)
+
+        # if we have stocks to sell - let's sell
+        if number_of_stocks > 0:
+
+            # sell stock, get the money back, add it to total players money
+            money_gained = candidate_select.sell_candidate_stock()
+            self.money += money_gained
+
+    def check_for_stock(self, candidate_name):
+
+        stocks = self.stocks.keys()
+        if candidate_name in stocks:
+
+            # Since we have (or have had)a stock - lets check for the number of stocks.
+            # This can be zero
+            number_of_stocks = self.stocks[candidate_name]
+
+        else:
+            # the player has no stock in this candidate
+            number_of_stocks = 0
+
+        return number_of_stocks
 
 candidates_list = []
 

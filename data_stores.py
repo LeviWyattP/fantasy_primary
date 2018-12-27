@@ -12,6 +12,19 @@ list_of_states = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Col
 candidates = ["Trump", "Kasich", "Cruz", "Rubio", "Carson", "Bush",
               "Gilmore", "Christie", "Fiorina", "Paul", "Huckabee",
               "Santorum"]
+stock_price_modifiers = {"Trump": 1.5,
+                         "Kasich": 1.0,
+                         "Cruz": 1.2,
+                         "Rubio": 0.4,
+                         "Carson": 1.2,
+                         "Bush":1.3,
+                         "Gilmore":1.3,
+                         "Christie":0.2,
+                         "Fiorina":0.6,
+                         "Paul":0.8,
+                         "Huckabee":0.8,
+                         "Santorum":1.05}
+
 
 unique_primaries = []
 

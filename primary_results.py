@@ -10,4 +10,7 @@ iowa = {
     'Gilmore':[0, 12],
     'Christie':[0, 3284],
     'Fiorina': [1, 3485],
-    'Paul': [1, 8481]}
+    'Paul': [1, 8481],
+    'Santorum':[0,1783],
+    'Huckabee':[1,3345]
+}

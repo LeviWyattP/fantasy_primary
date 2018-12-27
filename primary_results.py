@@ -1,3 +1,5 @@
+# Example data for testing
+
 iowa = {
     ['Trump', 7, 45429],
     ['Kasich', 1, 3474],

@@ -1,0 +1,126 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Animal Hey Rube{% endblock %}
+{% block content %}
+<script type="text/javascript">
+    window.onload = function() {
+    window.setTimeout(setDisabled, {{speed}});
+}
+function setDisabled() {
+    document.getElementById('attack').disabled = false;
+    document.getElementById('wait').disabled = false;
+    document.getElementById('special_attack').disabled = false;
+}
+ </script>
+
+{% if health_a|string() <= "0" and health_b|string() > "0" %}
+<div class="container">
+    <div class="page-header">
+      <center><h1><b>Animal Hey Rube</b></h1></center>
+    </div>
+    <div class="jumbotron">
+      <h1>GAME IS OVER!</h1>
+       <p>{{user_b}} has won the game! </p>
+        </div>
+    </div>
+{% endif %}
+
+{% if health_b|string() <= "0" and health_a|string() > "0" %}
+<div class="container">
+    <div class="page-header">
+      <center><h1><b>Animal Hey Rube</b></h1></center>
+    </div>
+    <div class="jumbotron">
+      <h1>GAME IS OVER!</h1>
+       <p>{{user_a}} has won the game!</p>
+
+        </div>
+    </div>
+{% endif %}
+
+{% if health_b|string() <= "0" and health_a|string() <= "0" %}
+<div class="container">
+    <div class="page-header">
+     <center><h1><b>Animal Hey Rube</b></h1></center>
+    </div>
+    <div class="jumbotron">
+      <h1>GAME IS OVER!</h1>
+       <p>It's a tie! </p>
+
+        </div>
+    </div>
+{% endif %}
+
+
+{% if health_b|string() > "0" and health_a|string() > "0" %}
+
+<div class="container">
+     <center><h1><b>Animal Hey Rube</b></h1></center>
+    </div>
+
+<div class="container">
+    <div class="jumbotron">
+
+      <a href="#col2Content" data-toggle="collapse"><center><h3>Instructions</h3></center></a>
+        <div id="col2Content" class="collapse">
+       <center>Based on the animal you chose you will have different stats. Your speed stat determines how long you have to
+            wait to be able to choose your next action. Animals like rabbit are very fast, while larger, or stronger
+            animals might be slower.</center><br><b>Attack:</b> Does damage to your opponent in the amount of your attack
+            stat.<br><b>Wait:</b>  Increases your health by 15 points, does no damage to your opponent. <br><b>Special
+            Attack: </b> Does a higher rate of damage to your opponent, but recoils causing you some damage as well.<br>
+            <br><center><strong>The first player to get to 0 health loses. The other is victorious!</strong></center>
+
+    </div>
+
+    </div>
+</div>
+
+<br>
+<div class="container">
+    <div class="jumbotron">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <h4>Game Controls</h4>
+        <form action="/home2" method="post" class="add-entry">
+      <p><input type="submit" disabled="disabled" id="attack" value="Attack" name="user_action" class="btn btn-danger" ></p>
+      <p><input type="submit" disabled="disabled" id="wait" value="Wait" name="user_action" class="btn btn-info"></p>
+      <p><input type="submit" disabled="disabled" id="special_attack" value="Special Attack" name="user_action" class="btn btn-warning"></p>
+        </form>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <center><h4>Animal</h4></center>
+      <div class="media">
+          {% if animal|string() == "Lion"|string() %}
+       <img src="/static/images/lion.jpg" alt="CATS" >
+        {% endif %}
+        {% if animal|string() == "Snake"|string() %}
+      <img src="/static/images/snake1.jpg" alt="SNAKE" >
+         {% endif %}
+         {% if animal|string() == "Rabbit"|string()%}
+      <img src="/static/images/rabbit.png" alt="RABBIT" >
+         {% endif %}
+         {% if animal|string() == "Dragon"|string()%}
+      <img src="/static/images/dragon1.jpg" alt="DRAGON" >
+         {% endif %}
+
+
+      </div>
+
+    </div>
+
+  <div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12">
+      <h4>Stats</h4>
+      <div id="col1Content" class="collapse in">
+       <p> <h4>Current health:</h4> {{hp}}
+          <p><h4>Attack Power:</h4>  {{attack}}
+          <p><h4>Special Attack:</h4>  {{spc_attack}}
+          <p><h4>Special Attack Cost:</h4>  {{spc_spurn}}
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+{% endif %}
+{% endblock %}

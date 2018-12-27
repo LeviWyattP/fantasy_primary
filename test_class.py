@@ -1,7 +1,6 @@
 import datetime
 
 class State:
-
     def __init__(self, state, date_of_primary, results):
         self.name = state
         self.primary_date = date_of_primary

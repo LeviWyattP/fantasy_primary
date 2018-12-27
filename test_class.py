@@ -239,11 +239,6 @@ league.update_state_data("Iowa", testdata.iowa)
 
 a =1
 
-class stupid_dictionary_item_class:
-    def __init__(self):
-        self.ascii_key = 'kasich'
-        self.memory_key = 0x085516
-        value
 # league = create_league()
 # update_data(league)
 

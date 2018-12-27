@@ -7,7 +7,6 @@ list_of_states = ["Alabama","Alaska","Arizona","Arkansas","California","Colorado
   "Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah",
   "Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]
 
-
 candidates = ["Trump", "Kasich", "Cruz", "Rubio", "Carson", "Bush",
               "Gilmore", "Christie", "Fiorina", "Paul", "Huckabee",
               "Santorum"]

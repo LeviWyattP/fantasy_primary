@@ -2,8 +2,10 @@ __author__ = 'Levi'
 
 from flask import Flask, render_template, request, send_from_directory
 from flask_bootstrap import Bootstrap
+import data_stores as data
 import os
 import time
+import test_class as tc
 
 
 app = Flask(__name__)
@@ -22,6 +24,12 @@ def hello():
     with open('Server_Log_File.log', 'w') as logfile:
             logfile.write("Got connection from user at IP address: " + user_ip + " at time: " +
                           time.strftime("%c") + "\n")
+    players = ['Levi', 'Lex', 'Eric']
+    gplay = tc.League()
+    gplay.build_players(players, 20)
+    gplay.build_candidates(data.candidates, data.stock_price_modifiers)
+    gplay.build_states()
+
     return render_template('index.html')
 
 

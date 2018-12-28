@@ -3,35 +3,39 @@ import data_stores as data
 import primary_results as testdata
 
 max_stocks_for_candidate = 10
+
+
 class League:
     def __init__(self):
-        self.players ={}
+        self.players = {}
         self.player_names = self.players.keys()
         self.candidates = {}
         self.candidate_names = self.candidates.keys()
         self.states = {}
 
-    def build_players(self, players, starting_money):
-        for player in players:
-            self.players[player] = Player(players, starting_money)
+    def build_players(self, players_in, starting_money):
+        for player in players_in:
+            self.players[player] = Player(players_in, starting_money)
             print('building players')
         self.player_names = self.players.keys()
+
     def build_candidates(self, candidates, stock_price_modifiers):
         for candidate in candidates:
             self.candidates[candidate] = Candidate(candidate, stock_price_modifiers[candidate])
             print("building candidates")
         self.candidate_names = self.candidates.keys()
+
     def build_states(self):
-        #Now we create states = this really should be a for loop for each state... but now just IOWA
-        statename= 'Iowa'
-        self.states[statename] = State(statename, data.primary_dates[statename][0], data.primary_dates[statename][1],{}, ['none'])
+        # Now we create states = this really should be a for loop for each state... but now just IOWA
+        state_name = 'Iowa'
+        self.states[state_name] = State(state_name, data.primary_dates[state_name][0],
+                                        data.primary_dates[state_name][1], {}, ['none'])
+
     def update_state_data(self, state_name, state_dict):
         self.states[state_name].update_results(state_dict)
 
         # update candidate info based on new data
         for candidate in self.candidate_names:
-
-
             self.candidates[candidate].update_candidate_data_from_state(state_name, state_dict[candidate][1],
                                                                         state_dict[candidate][0])
         # now we should update players based on new state data
@@ -48,6 +52,8 @@ class League:
             player_votes = self.players[player].state_votes[state_name]
             player_delegates = self.states[state_name].calculate_delegates_for_players(player_votes)
             self.players[player].set_player_delegates_for_state(state_name, player_delegates)
+
+
 class State:
 
     def __init__(self, state, date_of_primary, state_delegates, results, unique_primaries):
@@ -58,12 +64,13 @@ class State:
         self.total_player_votes = 0
 
         # Do they have standard primary rules? Or specific
-        self.primary_rules = self.check_primary_rules(unique_primaries)
+        self.check_primary_rules(unique_primaries)
 
         self.results_dict = {}
 
         # init class without results flag
         self.has_results = False
+
     def check_primary_rules(self, unique_primaries):
 
         # if the state is in the list of states with unique primary rules,
@@ -72,19 +79,21 @@ class State:
             self.primary_rules = False
         else:
             self.primary_rules = True
+
     def update_results(self, updated_results):
         self.results_dict = updated_results
 
         # set results flag - this lets us know if there are results
         number_of_candidates = len(self.results_dict.keys())
-        if self.has_results == False:
-            if number_of_candidates> 0:
+        if not self.has_results:
+            if number_of_candidates > 0:
 
-                #looks like we at least have candidates - do any of them have votes? let's check
+                # looks like we at least have candidates - do any of them have votes? let's check
                 for candidate in self.results_dict:
                     votes = self.results_dict[candidate][1]
                     if int(votes) > 0:
                         self.has_results = True
+
     def calculate_player_votes(self, player_stocks):
 
         votes = 0
@@ -98,12 +107,13 @@ class State:
 
             votes = votes + votes_for_candidate
         return votes
+
     def calculate_delegates_for_players(self, player_votes):
 
         # generic proportional distribution
-        if not self.primary_rules:
+        if self.primary_rules:
             if self.total_player_votes != 0:
-                return(round(player_votes/self.total_player_votes))
+                return round(player_votes/self.total_player_votes)
             else:
                 return 0
 
@@ -112,6 +122,7 @@ class State:
         else:
             # TODO write code for individual primary rules?
             print('I havent writte this could yet')
+
 
 class Candidate:
     def __init__(self, name, stock_price_modifier):
@@ -124,6 +135,7 @@ class Candidate:
         self.set_stock_price()
         self.state_votes = {}
         self.state_delegates = {}
+
     def buy_candidate_stock(self, player_money):
 
         # if there are shares available and the player has enough money
@@ -139,6 +151,7 @@ class Candidate:
         else:
             # -3 no idea what happened
             return -3
+
     def sell_candidate_stock(self):
 
         # what is the price of the stock - this is what the player will get
@@ -148,16 +161,21 @@ class Candidate:
         self.set_stock_price()
 
         return player_money
+
     def set_stock_price(self):
         self.stock_price = 1 * self.stock_price_modifier ** (11 - self.get_shares())
+
     def get_stock_price(self):
         return self.stock_price
+
     def get_shares(self):
         return self.shares
+
     def update_candidate_data_from_state(self, state_name, new_votes, new_delegates):
 
         # clean up before we add new data
-        # TODO is there an error here where popular vote and total delegates are accidently subtracted more than once?
+        # TODO is there an error here where popular vote and total delegates are accidentally subtracted more
+        #  than once?
         if state_name in self.state_votes.keys() and self.state_votes[state_name] > 0:
             self.popular_vote = self.popular_vote - self.state_votes[state_name]
         if state_name in self.state_delegates.keys() and self.state_delegates[state_name] > 0:
@@ -182,8 +200,10 @@ class Player:
         self.stocks = {}
         self.state_votes = {}
         self.state_delegates = {}
+
     def add_stock(self, candidate_select):
         candidate_select.buy_candidate_stock()
+
     def sell_stock(self, candidate_select):
 
         # Check for number of stocks - Does the player have stock in this candidate
@@ -195,6 +215,7 @@ class Player:
             # sell stock, get the money back, add it to total players money
             money_gained = candidate_select.sell_candidate_stock()
             self.money += money_gained
+
     def check_for_stock(self, candidate_name):
 
         stocks = self.stocks.keys()
@@ -209,6 +230,7 @@ class Player:
             number_of_stocks = 0
 
         return number_of_stocks
+
     def set_player_votes_for_state(self, state_name, player_votes):
 
         # first clean up any old votes
@@ -217,9 +239,10 @@ class Player:
 
         self.state_votes[state_name] = player_votes
         self.total_votes += player_votes
+
     def set_player_delegates_for_state(self, state_name, player_delegates):
 
-        #first clean up any old votes
+        # first clean up any old votes
         if state_name in self.state_delegates.keys() and self.state_delegates[state_name] > 0:
             self.delegates = self.delegates - player_delegates
         self.state_delegates[state_name] = player_delegates
@@ -232,12 +255,13 @@ league = League()
 league.build_players(players, 20)
 league.build_candidates(data.candidates, data.stock_price_modifiers)
 league.build_states()
-    # return league
+
+# return league
 
 # def update_data(league):
 league.update_state_data("Iowa", testdata.iowa)
 
-a =1
+a = 1
 
 # league = create_league()
 # update_data(league)

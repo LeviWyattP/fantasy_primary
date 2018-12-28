@@ -7,6 +7,7 @@ class Web_Player:
         self.name = name
         self.votes = votes
         self.delegates = delegates
+        self.profile_picture = r'C:\Users\Levi\PycharmProjects\fantasy_primary\static\lex_pic.jpg'
 
 
 class Web_Candidate:

@@ -1,7 +1,7 @@
 import datetime
 import data_stores as data
 import primary_results as testdata
-
+import Web_classes
 max_stocks_for_candidate = 10
 
 
@@ -15,7 +15,7 @@ class League:
 
     def build_players(self, players_in, starting_money):
         for player in players_in:
-            self.players[player] = Player(players_in, starting_money)
+            self.players[player] = Player(player, starting_money)
             print('building players')
         self.player_names = self.players.keys()
 
@@ -188,6 +188,11 @@ class Candidate:
         self.state_votes[state_name] = new_votes
         self.state_delegates[state_name] = new_delegates
 
+    def get_web_class(self):
+
+        return Web_classes.Web_Candidate(self.name, self.popular_vote, self.delegates)
+
+
 
 class Player:
     def __init__(self, name, money):
@@ -248,18 +253,20 @@ class Player:
         self.state_delegates[state_name] = player_delegates
         self.delegates += player_delegates
 
+    def get_web_class(self):
+        return Web_classes.Web_Player(self.name, self.total_votes, self.delegates)
 
 # def create_league():
-players = ['Levi', 'Lex', 'Eric']
-league = League()
-league.build_players(players, 20)
-league.build_candidates(data.candidates, data.stock_price_modifiers)
-league.build_states()
+# players = ['Levi', 'Lex', 'Eric']
+# league = League()
+# league.build_players(players, 20)
+# league.build_candidates(data.candidates, data.stock_price_modifiers)
+# league.build_states()
 
 # return league
 
 # def update_data(league):
-league.update_state_data("Iowa", testdata.iowa)
+# league.update_state_data("Iowa", testdata.iowa)
 
 a = 1
 

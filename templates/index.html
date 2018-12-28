@@ -20,12 +20,12 @@
         <tr>
     </thead>
     <tbody>
-        {% for person in people %}
+        {% for primary in upcoming_primaries %}
 
         <tr>
-            <td>{{ person.name }}</td>
-            <td>{{ person.age }}</td>
-            <td>{{ person.option }}</td>
+            <td>{{ primary.date }}</td>
+            <td>{{ primary.state }}</td>
+            <td>{{ primary.delegates }}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -47,8 +47,8 @@
         {% for person in people %}
         <tr>
             <td>{{ person.name }}</td>
-            <td>{{ person.age }}</td>
-            <td>{{ person.option }}</td>
+            <td>{{ person.votes }}</td>
+            <td>{{ person.delegates }}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -66,11 +66,11 @@
         <tr>
     </thead>
     <tbody>
-        {% for person in people %}
+        {% for candidate in candidates %}
         <tr>
-            <td>{{ person.name }}</td>
-            <td>{{ person.age }}</td>
-            <td>{{ person.option }}</td>
+            <td>{{ candidate.name }}</td>
+            <td>{{ candidate.popular_vote }}</td>
+            <td>{{ candidate.delegates }}</td>
         </tr>
         {% endfor %}
     </tbody>

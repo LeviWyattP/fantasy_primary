@@ -1,16 +1,18 @@
-{% extends "bootstrap/base.html" %}
-{% block title %}Fantasy Primaries{% endblock %}
+{% extends "layout.html" %}
 
-{% block content %}
+{% block title %}Dashboard{% endblock %}
 
-<div class="container">
-    <div class="jumbotron">
-            <center><h1>Fantasy Primaries</h1>
-            <h2>'Username' Dashboard</h2></center>
-        <left><h3><br><br><br>Upcoming Primaries</h3></left>
+{% block body %}
+ <div class="container">
+    <div>
+            <center>
+                <br><br>
+            <h2>{{g.user.profile.firstName}}'s Dashboard</h2></center>
+    </div>
+        <left><h5><br><br>Upcoming Primaries</h5></left>
 
-
-        <table class="table">
+<div class="jumbotron">
+      <table class="table">
     <thead>
         <tr>
 
@@ -30,10 +32,12 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
 
 
         <br><br><br>
-        <left><h3>Player Standings</h3></left>
+        <left><h5>Player Standings</h5></left>
+     <div class="jumbotron">
         <table class="table">
     <thead>
         <tr>
@@ -53,10 +57,12 @@
         {% endfor %}
     </tbody>
 </table>
+     </div>
 
 
         <br><br><br>
-        <left><h3>Candidate Standings</h3></left>
+        <left><h5>Candidate Standings</h5></left>
+     <div class="jumbotron">
         <table class="table">
     <thead>
         <tr>
@@ -75,8 +81,12 @@
         {% endfor %}
     </tbody>
 </table>
+     </div>
 
 
         </div>
     </div>
 {% endblock %}
+
+
+

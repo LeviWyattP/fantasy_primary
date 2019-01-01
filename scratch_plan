@@ -1,29 +1,29 @@
 
 
 Web pages
-
 1 - home page
 2 - candidate page
 3 - player page
 4 - login
 
-
-
 Home page
 - Next Primary
 - show state, show delegates
 - show leaderboard
-- show leading candidates, show leading playets
+- show leading candidates, show leading players
 
 Candidate Page
 - Show history, previous states
 - show price, (historical price???)
-- Buy/sell stock
+- Allow logged in player to Buy/sell stock from candidate
 
 Player page
 - show money
 - show stocks
 - show votes/delegates
+
+Phase 2:
+ - Create backend so that the code doesn't have to be re-ran so many times.
 
 
 Outstanding Questions:
